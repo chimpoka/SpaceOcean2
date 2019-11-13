@@ -1,20 +1,29 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Rocket
+public class Rocket : MonoBehaviour
 {
-    public void Move(float speed)
+    public event Action OnDied; 
+
+    // units per second
+    public void TranslateForward(float units)
     {
 
     }
 
-    public void Stop()
+    //public void Stop()
+    //{
+    //    //Move(0);
+    //}
+
+    public void SetPitch(float angle)
     {
-        Move(0);
+
     }
 
-    public void RotateTo(float angle)
+    public void SetRoll(float angle)
     {
 
     }

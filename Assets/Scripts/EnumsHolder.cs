@@ -4,5 +4,6 @@ using UnityEngine;
 
 public class EnumsHolder
 {
-    public enum PlayMode {Touchscreen, Accelerometer};
+    public enum ControllerMode {Touchscreen, Accelerometer};
+    public enum PlayMode { Normal, Tutorial};
 }

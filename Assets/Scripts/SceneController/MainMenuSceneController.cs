@@ -13,6 +13,6 @@ public class MainMenuSceneController : SceneControllerBase
 
     private void Update()
     {
-        
+
     }
 }

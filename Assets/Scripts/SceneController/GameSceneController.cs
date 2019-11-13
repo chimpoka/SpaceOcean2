@@ -5,13 +5,13 @@ using UnityEngine;
 public class GameSceneController : SceneControllerBase
 {
     HudGame Hud;
-    PlayStrategyBase Strategy;
+    PlayStrategy Strategy;
 
     private void Start()
     {
         Hud = (HudGame)HudBase.Instance;
-        Strategy = CreatePlayStrategy();
-        Strategy.Start();
+        Strategy = CreatePlayStrategy(GameInstance.Instance.PlayMode);
+        Strategy.RocketController.Rocket.OnDied += LoseLevel;
     }
 
     private void Update()
@@ -19,20 +19,40 @@ public class GameSceneController : SceneControllerBase
         Strategy.Update();
     }
 
-    private PlayStrategyBase CreatePlayStrategy()
+    private PlayStrategy CreatePlayStrategy(EnumsHolder.PlayMode playMode)
     {
-        if (GameInstance.Instance.PlayMode == EnumsHolder.PlayMode.Accelerometer)
+        if (playMode == EnumsHolder.PlayMode.Normal)
         {
-            return new AccelerometerPlayStrategy();
+            return new PlayStrategy();
         }
-        else if (GameInstance.Instance.PlayMode == EnumsHolder.PlayMode.Touchscreen)
+        else if (playMode == EnumsHolder.PlayMode.Tutorial)
         {
-            return new TouchscreenPlayStrategy();
+            return new TutorialPlayStrategy();
         }
         else
         {
-            print("PlayMode '" + GameInstance.Instance.PlayMode + "' is not valid");
+            print("PlayMode '" + playMode + "' is not valid");
             return null;
         }
+    }
+
+    public void Pause()
+    {
+
+    }
+
+    public void Resume()
+    {
+
+    }
+
+    public void LoseLevel()
+    {
+
+    }
+
+    public void LoseGame()
+    {
+
     }
 }

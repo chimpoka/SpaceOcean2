@@ -7,6 +7,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Singleton / GameInstance")]
 public class GameInstance : ScriptableObject
 {
+    public EnumsHolder.ControllerMode ControllerMode;
     public EnumsHolder.PlayMode PlayMode;
 
     static private GameInstance instance = null;
@@ -25,7 +26,7 @@ public class GameInstance : ScriptableObject
 
     }
 
-    public void LoadGameScene(EnumsHolder.PlayMode playMode)
+    public void LoadGameScene(EnumsHolder.ControllerMode playMode)
     {
 
     }
