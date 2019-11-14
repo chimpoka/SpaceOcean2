@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class TouchscreenRocketController : RocketController
 {
-    private float MaxAngle = 45.0f;
-    public override void Update()
+    public override void Update(float deltaTime)
     {
         if (Input.GetMouseButton(0))
         {
@@ -15,5 +14,7 @@ public class TouchscreenRocketController : RocketController
         {
             RotatePitch(-MaxAngle);
         }
+
+        base.Update(deltaTime);
     }
 }

@@ -8,7 +8,7 @@ public class Rocket : MonoBehaviour
     public event Action OnDied; 
 
     // units per second
-    public void TranslateForward(float units)
+    public void MoveForward(float units)
     {
 
     }
