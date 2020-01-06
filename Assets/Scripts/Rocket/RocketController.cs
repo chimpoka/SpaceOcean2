@@ -5,58 +5,51 @@ using UnityEngine;
 public class RocketController
 {
     public Rocket Rocket;
+    public bool IsPaused;
+
     protected float MaxAngle = 45.0f;
 
-    private bool IsMoving;
     private float MoveSpeed;
-    private float CurrentPitchAngle;
     private float DesiredPitchAngle;
-    private float CurrentRollAngle;
     private float DesiredRollAngle;
-    private float PitchLerpAlpha = 0.05f;
-    private float RollLerpAlpha = 0.05f;
+    private float PitchLerpSpeed = 5.0f;
+    private float RollLerpSpeed = 5.0f;
    
 
     public RocketController()
     {
-        //Rocket = MonoBehaviour.Instantiate
+        GameObject RocketObject = MonoBehaviour.Instantiate(Resources.Load("Rocket"), new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
+        Rocket = RocketObject.GetComponent<Rocket>();
     }
 
     virtual public void Update(float deltaTime)
     {
-        if (IsMoving)
-        {
-            MoveInternal(deltaTime);
-        }
+        if (IsPaused)
+            return;
 
-        RotatePitchInternal(deltaTime);
-        RotateRollInternal(deltaTime);
+        MoveInternal(deltaTime);
+        SetPitchSmoothInternal(deltaTime);
+        SetRollSmoothInternal(deltaTime);
     }
-
-
 
     public void Move(float speed)
     {
         MoveSpeed = speed;
-        IsMoving = true;
     }
 
     public void StopMove()
     {
         MoveSpeed = 0;
-        IsMoving = false;
     }
 
-    public void RotatePitch(float desiredAngle)
+    public void SetPitchSmooth(float desiredAngle)
     {
-        if (CurrentPitchAngle != DesiredPitchAngle)
-            DesiredPitchAngle = desiredAngle;
+        DesiredPitchAngle = desiredAngle;
     }
 
-    public void RotateRoll(float desiredAngle)
+    public void SetRollSmooth(float desiredAngle)
     {
-        if (CurrentRollAngle != DesiredRollAngle)
-            DesiredRollAngle = desiredAngle;
+        DesiredRollAngle = desiredAngle;
     }
 
    
@@ -66,15 +59,15 @@ public class RocketController
         Rocket.MoveForward(MoveSpeed * deltaTime);
     }
 
-    private void RotatePitchInternal(float deltaTime)
+    private void SetPitchSmoothInternal(float deltaTime)
     {
-        if (CurrentPitchAngle != DesiredPitchAngle)
-            Mathf.Lerp(CurrentPitchAngle, DesiredPitchAngle, PitchLerpAlpha * deltaTime);
+        if (Rocket.GetPitch() != DesiredPitchAngle)
+            Rocket.SetPitch(Mathf.Lerp(Rocket.GetPitch(), DesiredPitchAngle, PitchLerpSpeed * deltaTime));
     }
 
-    private void RotateRollInternal(float deltaTime)
+    private void SetRollSmoothInternal(float deltaTime)
     {
-        if (CurrentRollAngle != DesiredRollAngle)
-            Mathf.Lerp(CurrentRollAngle, DesiredRollAngle, RollLerpAlpha * deltaTime);
+        if (Rocket.GetRoll() != DesiredRollAngle)
+            Rocket.SetRoll(Mathf.Lerp(Rocket.GetRoll(), DesiredRollAngle, RollLerpSpeed * deltaTime));
     }
 }

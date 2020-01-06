@@ -12,3 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: baf0948002f28af4dacf34c498828059, type: 3}
   m_Name: GameInstance
   m_EditorClassIdentifier: 
+  ControllerMode: 0
+  PlayMode: 0
+  test: 2

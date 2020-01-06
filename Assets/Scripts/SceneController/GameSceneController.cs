@@ -10,7 +10,7 @@ public class GameSceneController : SceneControllerBase
     private void Start()
     {
         Hud = (HudGame)HudBase.Instance;
-        Strategy = CreatePlayStrategy(GameInstance.Instance.PlayMode);
+        Strategy = CreateStrategy();
         Strategy.RocketController.Rocket.OnDied += LoseLevel;
     }
 
@@ -19,8 +19,10 @@ public class GameSceneController : SceneControllerBase
         Strategy.Update();
     }
 
-    private PlayStrategy CreatePlayStrategy(EnumsHolder.PlayMode playMode)
+    private PlayStrategy CreateStrategy()
     {
+        EnumsHolder.PlayMode playMode = GameInstance.Instance.PlayMode;
+
         if (playMode == EnumsHolder.PlayMode.Normal)
         {
             return new PlayStrategy();

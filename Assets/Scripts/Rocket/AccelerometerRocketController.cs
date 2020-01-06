@@ -8,7 +8,10 @@ public class AccelerometerRocketController : RocketController
 
     public override void Update(float deltaTime)
     {
-        RotatePitch(Mathf.Clamp(GetDeviceAngle() * RotationPower, -MaxAngle,  MaxAngle));
+        if (IsPaused)
+            return;
+
+        SetPitchSmooth(Mathf.Clamp(GetDeviceAngle() * RotationPower, -MaxAngle,  MaxAngle));
 
         base.Update(deltaTime);
     }

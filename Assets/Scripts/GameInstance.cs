@@ -26,7 +26,7 @@ public class GameInstance : ScriptableObject
 
     }
 
-    public void LoadGameScene(EnumsHolder.ControllerMode playMode)
+    public void LoadGameScene(EnumsHolder.ControllerMode playMode, EnumsHolder.ControllerMode controllerMode)
     {
 
     }

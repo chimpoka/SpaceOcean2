@@ -6,13 +6,16 @@ public class TouchscreenRocketController : RocketController
 {
     public override void Update(float deltaTime)
     {
+        if (IsPaused)
+            return;
+
         if (Input.GetMouseButton(0))
         {
-            RotatePitch(MaxAngle);
+            SetPitchSmooth(MaxAngle);
         }
         else
         {
-            RotatePitch(-MaxAngle);
+            SetPitchSmooth(-MaxAngle);
         }
 
         base.Update(deltaTime);
