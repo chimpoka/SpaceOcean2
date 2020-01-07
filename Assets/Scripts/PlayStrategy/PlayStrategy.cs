@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayStrategy
 {
@@ -10,15 +8,57 @@ public class PlayStrategy
     public int MaxHealth;
     public RocketController RocketController;
 
-    public PlayStrategy() : base()
+    private FollowCamera Camera;
+    private IntegerTimer Timer;
+    protected HudGame Hud;
+    protected Config Config;
+
+    public PlayStrategy()
     {
         RocketController = CreateRocketController();
+        RocketController.OnRocketDied += LoseLevel;
+
+        Camera = new FollowCamera(RocketController.Rocket.gameObject);
+        Hud = (HudGame)HudBase.Instance;
+        Config = Config.Instance;
+
+        StartLevel();
     }
 
     virtual public void Update()
     {
-        RocketController.Update(Time.deltaTime);
+        RocketController.Update();
+        Camera.Update();
     }
+
+    virtual public void LoseLevel()
+    {
+        RocketController.IsPaused = true;
+    }
+
+    virtual public void LoseGame()
+    {
+
+    }
+
+    virtual public void StartLevel()
+    {
+        RocketController.IsPaused = true;
+        Hud.CreateStartLevelImage();
+        Hud.OnStartLevelImageClosed += OnStartLevelImageClosed;
+    }
+
+    public void Pause()
+    {
+
+    }
+
+    public void Resume()
+    {
+
+    }
+
+
 
     private RocketController CreateRocketController()
     {
@@ -37,5 +77,11 @@ public class PlayStrategy
             MonoBehaviour.print("ControllerMode '" + mode + "' is not valid");
             return null;
         }
+    }
+
+    private void OnStartLevelImageClosed()
+    {
+        RocketController.IsPaused = false;
+        RocketController.Move(Config.StartSpeed);
     }
 }

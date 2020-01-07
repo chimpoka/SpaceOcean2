@@ -1,10 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class TutorialPlayStrategy : PlayStrategy
 {
-    Tutorial Tutorial;
+    private Tutorial Tutorial;
 
     public TutorialPlayStrategy() : base()
     {

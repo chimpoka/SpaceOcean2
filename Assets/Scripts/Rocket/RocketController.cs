@@ -1,11 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class RocketController
 {
     public Rocket Rocket;
     public bool IsPaused;
+    public event System.Action OnRocketDied;
 
     protected float MaxAngle = 45.0f;
 
@@ -20,16 +19,17 @@ public class RocketController
     {
         GameObject RocketObject = MonoBehaviour.Instantiate(Resources.Load("Rocket"), new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
         Rocket = RocketObject.GetComponent<Rocket>();
+        Rocket.OnCollide += RocketDied;
     }
 
-    virtual public void Update(float deltaTime)
+    virtual public void Update()
     {
         if (IsPaused)
             return;
 
-        MoveInternal(deltaTime);
-        SetPitchSmoothInternal(deltaTime);
-        SetRollSmoothInternal(deltaTime);
+        MoveInternal(Time.deltaTime);
+        SetPitchSmoothInternal(Time.deltaTime);
+        SetRollSmoothInternal(Time.deltaTime);
     }
 
     public void Move(float speed)
@@ -69,5 +69,10 @@ public class RocketController
     {
         if (Rocket.GetRoll() != DesiredRollAngle)
             Rocket.SetRoll(Mathf.Lerp(Rocket.GetRoll(), DesiredRollAngle, RollLerpSpeed * deltaTime));
+    }
+
+    private void RocketDied()
+    {
+        OnRocketDied.Invoke();
     }
 }

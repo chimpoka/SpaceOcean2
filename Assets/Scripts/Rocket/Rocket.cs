@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Rocket : MonoBehaviour
 {
-    public event Action OnDied; 
+    public event System.Action OnCollide; 
 
     public void MoveForward(float units)
     {
@@ -40,8 +37,9 @@ public class Rocket : MonoBehaviour
 
     }
 
-    public void Die()
-    {
 
+    private void OnTriggerEnter(Collider other)
+    {
+        OnCollide.Invoke();
     }
 }

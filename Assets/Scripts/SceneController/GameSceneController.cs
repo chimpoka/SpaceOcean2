@@ -1,17 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class GameSceneController : SceneControllerBase
+﻿public class GameSceneController : SceneControllerBase
 {
-    HudGame Hud;
-    PlayStrategy Strategy;
+    private HudGame Hud;
+    private PlayStrategy Strategy;
 
     private void Start()
     {
         Hud = (HudGame)HudBase.Instance;
         Strategy = CreateStrategy();
-        Strategy.RocketController.Rocket.OnDied += LoseLevel;
     }
 
     private void Update()
@@ -36,25 +31,5 @@ public class GameSceneController : SceneControllerBase
             print("PlayMode '" + playMode + "' is not valid");
             return null;
         }
-    }
-
-    public void Pause()
-    {
-
-    }
-
-    public void Resume()
-    {
-
-    }
-
-    public void LoseLevel()
-    {
-
-    }
-
-    public void LoseGame()
-    {
-
     }
 }

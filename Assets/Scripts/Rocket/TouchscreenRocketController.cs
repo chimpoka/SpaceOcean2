@@ -1,10 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class TouchscreenRocketController : RocketController
 {
-    public override void Update(float deltaTime)
+    public override void Update()
     {
         if (IsPaused)
             return;
@@ -18,6 +16,6 @@ public class TouchscreenRocketController : RocketController
             SetPitchSmooth(-MaxAngle);
         }
 
-        base.Update(deltaTime);
+        base.Update();
     }
 }

@@ -1,19 +1,17 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class AccelerometerRocketController : RocketController
 {
     private float RotationPower = 3.0f;
 
-    public override void Update(float deltaTime)
+    public override void Update()
     {
         if (IsPaused)
             return;
 
         SetPitchSmooth(Mathf.Clamp(GetDeviceAngle() * RotationPower, -MaxAngle,  MaxAngle));
 
-        base.Update(deltaTime);
+        base.Update();
     }
 
 

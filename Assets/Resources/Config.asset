@@ -9,8 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: baf0948002f28af4dacf34c498828059, type: 3}
-  m_Name: GameInstance
+  m_Script: {fileID: 11500000, guid: 612a8a3608de21847813cc76cc17bf28, type: 3}
+  m_Name: Config
   m_EditorClassIdentifier: 
-  ControllerMode: 0
-  PlayMode: 0
+  StartLevelCountdownInSeconds: 7
