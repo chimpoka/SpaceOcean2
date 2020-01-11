@@ -3,6 +3,7 @@
 public class HudGame : HudBase
 {
     public event System.Action OnStartLevelImageClosed;
+    public event System.Action OnLoseLevelImageClosed;
 
     void Start()
     {
@@ -17,10 +18,18 @@ public class HudGame : HudBase
     public void CreateStartLevelImage()
     {
         GameObject obj = InstantiatePrefab("HUD/StartLevelImage");
-        obj.GetComponent<UIEventHandler>().OnClick += DestroyWindow;
+        UIEventHandler Event = obj.GetComponent<UIEventHandler>();
+        Event.OnClick += () => OnStartLevelImageClosed();
+        Event.OnClick += () => Destroy(obj);
     }
 
-
+    public void CreateLoseLevelImage()
+    {
+        GameObject obj = InstantiatePrefab("HUD/LoseLevelImage");
+        UIEventHandler Event = obj.GetComponent<UIEventHandler>();
+        Event.OnClick += () => OnLoseLevelImageClosed();
+        Event.OnClick += () => Destroy(obj);
+    }
 
     private GameObject InstantiatePrefab(string path)
     {
@@ -29,9 +38,5 @@ public class HudGame : HudBase
         return obj;
     }
 
-    private void DestroyWindow(GameObject obj)
-    {
-        Destroy(obj);
-        OnStartLevelImageClosed();
-    }
+ 
 }

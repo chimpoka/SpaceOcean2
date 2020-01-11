@@ -19,7 +19,7 @@ public class RocketController
     {
         GameObject RocketObject = MonoBehaviour.Instantiate(Resources.Load("Rocket"), new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
         Rocket = RocketObject.GetComponent<Rocket>();
-        Rocket.OnCollide += RocketDied;
+        Rocket.OnCollide += () => OnRocketDied();
     }
 
     virtual public void Update()
@@ -52,7 +52,17 @@ public class RocketController
         DesiredRollAngle = desiredAngle;
     }
 
-   
+    public void SetPosition(float x, float y, float z)
+    {
+        Rocket.SetPosition(new Vector3(x, y, z));
+    }
+
+    public void SetPitch(float angle)
+    {
+        Rocket.SetPitch(angle);
+    }
+
+
 
     private void MoveInternal(float deltaTime)
     {
@@ -69,10 +79,5 @@ public class RocketController
     {
         if (Rocket.GetRoll() != DesiredRollAngle)
             Rocket.SetRoll(Mathf.Lerp(Rocket.GetRoll(), DesiredRollAngle, RollLerpSpeed * deltaTime));
-    }
-
-    private void RocketDied()
-    {
-        OnRocketDied.Invoke();
     }
 }

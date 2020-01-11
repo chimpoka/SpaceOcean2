@@ -34,6 +34,8 @@ public class PlayStrategy
     virtual public void LoseLevel()
     {
         RocketController.IsPaused = true;
+        Hud.CreateLoseLevelImage();
+        Hud.OnLoseLevelImageClosed += OnLoseLevelImageClosed;
     }
 
     virtual public void LoseGame()
@@ -44,6 +46,8 @@ public class PlayStrategy
     virtual public void StartLevel()
     {
         RocketController.IsPaused = true;
+        RocketController.SetPosition(0, 0, 0);
+        RocketController.SetPitch(0);
         Hud.CreateStartLevelImage();
         Hud.OnStartLevelImageClosed += OnStartLevelImageClosed;
     }
@@ -83,5 +87,12 @@ public class PlayStrategy
     {
         RocketController.IsPaused = false;
         RocketController.Move(Config.StartSpeed);
+        Hud.OnStartLevelImageClosed -= OnStartLevelImageClosed;
+    }
+
+    private void OnLoseLevelImageClosed()
+    {
+        StartLevel();
+        Hud.OnLoseLevelImageClosed -= OnLoseLevelImageClosed;
     }
 }

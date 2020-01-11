@@ -9,6 +9,11 @@ public class Rocket : MonoBehaviour
         transform.Translate(new Vector3(units, 0, 0), Space.Self);
     }
 
+    public void SetPosition(Vector3 position)
+    {
+        gameObject.transform.position = position;
+    }
+
     public float GetPitch()
     {
         float angle = transform.eulerAngles.z;
@@ -40,6 +45,6 @@ public class Rocket : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        OnCollide.Invoke();
+        OnCollide();
     }
 }
