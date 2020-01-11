@@ -4,7 +4,7 @@ public class TutorialPlayStrategy : PlayStrategy
 {
     private Tutorial Tutorial;
 
-    public TutorialPlayStrategy() : base()
+    public TutorialPlayStrategy(RocketController rocketController) : base(rocketController)
     {
         Tutorial = CreateTutorial(GameInstance.Instance.ControllerMode);
         Tutorial.OnHowToPlayInfoWindowClosed += OnCloseHowToPlayInfoWindow;

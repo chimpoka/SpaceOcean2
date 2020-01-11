@@ -13,9 +13,9 @@ public class PlayStrategy
     protected HudGame Hud;
     protected Config Config;
 
-    public PlayStrategy()
+    public PlayStrategy(RocketController rocketController)
     {
-        RocketController = CreateRocketController();
+        RocketController = rocketController;
         RocketController.OnRocketDied += LoseLevel;
 
         Camera = new FollowCamera(RocketController.Rocket.gameObject);
@@ -63,25 +63,6 @@ public class PlayStrategy
     }
 
 
-
-    private RocketController CreateRocketController()
-    {
-        EnumsHolder.ControllerMode mode = GameInstance.Instance.ControllerMode;
-
-        if (mode == EnumsHolder.ControllerMode.Accelerometer)
-        {
-            return new AccelerometerRocketController();
-        }
-        else if (mode == EnumsHolder.ControllerMode.Touchscreen)
-        {
-            return new TouchscreenRocketController();
-        }
-        else
-        {
-            MonoBehaviour.print("ControllerMode '" + mode + "' is not valid");
-            return null;
-        }
-    }
 
     private void OnStartLevelImageClosed()
     {
