@@ -57,6 +57,11 @@ public class RocketController
         Rocket.SetPosition(new Vector3(x, y, z));
     }
 
+    public Vector3 GetPosition()
+    {
+        return Rocket.GetPosition();
+    }
+
     public void SetPitch(float angle)
     {
         Rocket.SetPitch(angle);

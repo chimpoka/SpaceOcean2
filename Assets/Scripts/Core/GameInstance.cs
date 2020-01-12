@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 
-
 [CreateAssetMenu(menuName = "ScriptableObjects / GameInstance")]
 public class GameInstance : SingletonScriptableObject<GameInstance>
 {

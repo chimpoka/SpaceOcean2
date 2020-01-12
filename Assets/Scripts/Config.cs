@@ -4,4 +4,5 @@
 public class Config : SingletonScriptableObject<Config>
 {
     public float StartSpeed = 5.0f;
+    public int MaxHealth = 5;
 }

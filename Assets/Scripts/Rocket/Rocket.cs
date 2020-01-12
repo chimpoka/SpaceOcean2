@@ -14,6 +14,11 @@ public class Rocket : MonoBehaviour
         gameObject.transform.position = position;
     }
 
+    public Vector3 GetPosition()
+    {
+        return gameObject.transform.position;
+    }
+
     public float GetPitch()
     {
         float angle = transform.eulerAngles.z;

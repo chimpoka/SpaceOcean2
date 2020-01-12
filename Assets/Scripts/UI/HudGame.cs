@@ -1,9 +1,16 @@
-﻿using UnityEngine;
+﻿using TMPro;
+using UnityEngine;
 
 public class HudGame : HudBase
 {
-    public event System.Action OnStartLevelImageClosed;
-    public event System.Action OnLoseLevelImageClosed;
+    
+    public TextMeshProUGUI CurrentScore;
+    public TextMeshProUGUI BestScore;
+    public TextMeshProUGUI CurrentHealth;
+
+    public System.Action OnStartLevelWindowClosed;
+    public System.Action OnLoseLevelWindowClosed;
+    public System.Action OnLoseGameWindowClosed;
 
     void Start()
     {
@@ -15,20 +22,29 @@ public class HudGame : HudBase
         
     }
 
-    public void CreateStartLevelImage()
+    public void CreateStartLevelWindow()
     {
-        GameObject obj = InstantiatePrefab("HUD/StartLevelImage");
-        UIEventHandler Event = obj.GetComponent<UIEventHandler>();
-        Event.OnClick += () => OnStartLevelImageClosed();
-        Event.OnClick += () => Destroy(obj);
+        CreateSimpleClickableWindow("HUD/StartLevelWindow", OnStartLevelWindowClosed);
     }
 
-    public void CreateLoseLevelImage()
+    public void CreateLoseLevelWindow()
     {
-        GameObject obj = InstantiatePrefab("HUD/LoseLevelImage");
+        CreateSimpleClickableWindow("HUD/LoseLevelWindow", OnLoseLevelWindowClosed);
+    }
+
+    public void CreateLoseGameWindow()
+    {
+        CreateSimpleClickableWindow("HUD/LoseGameWindow", OnLoseGameWindowClosed);
+    }
+
+
+
+    private void CreateSimpleClickableWindow(string path, System.Action action)
+    {
+        GameObject obj = InstantiatePrefab(path);
         UIEventHandler Event = obj.GetComponent<UIEventHandler>();
-        Event.OnClick += () => OnLoseLevelImageClosed();
         Event.OnClick += () => Destroy(obj);
+        Event.OnClick += action;
     }
 
     private GameObject InstantiatePrefab(string path)
@@ -37,6 +53,4 @@ public class HudGame : HudBase
         obj.transform.SetParent(gameObject.transform, false);
         return obj;
     }
-
- 
 }

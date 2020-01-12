@@ -1,26 +1,24 @@
-﻿using UnityEngine;
-
-public class PlayStrategy
+﻿public class PlayStrategy
 {
-    public int CurrentScore;
-    public int BestScore;
-    public int CurrentHealth;
-    public int MaxHealth;
+    public State State;
     public RocketController RocketController;
 
     private FollowCamera Camera;
-    private IntegerTimer Timer;
     protected HudGame Hud;
     protected Config Config;
 
     public PlayStrategy(RocketController rocketController)
     {
         RocketController = rocketController;
-        RocketController.OnRocketDied += LoseLevel;
+        RocketController.OnRocketDied += EndLevel;
 
         Camera = new FollowCamera(RocketController.Rocket.gameObject);
         Hud = (HudGame)HudBase.Instance;
         Config = Config.Instance;
+
+        State = new State();
+        //  State = Data.LoadState();
+        State.CurrentHealth = Config.MaxHealth;
 
         StartLevel();
     }
@@ -29,27 +27,31 @@ public class PlayStrategy
     {
         RocketController.Update();
         Camera.Update();
+        SetScore( (int)RocketController.GetPosition().x );
     }
 
     virtual public void LoseLevel()
     {
-        RocketController.IsPaused = true;
-        Hud.CreateLoseLevelImage();
-        Hud.OnLoseLevelImageClosed += OnLoseLevelImageClosed;
+        Hud.OnLoseLevelWindowClosed = StartLevel;
+        Hud.CreateLoseLevelWindow();
     }
 
     virtual public void LoseGame()
     {
-
+        Hud.OnLoseGameWindowClosed = StartLevel;
+        Hud.CreateLoseGameWindow();
     }
 
     virtual public void StartLevel()
     {
+        if (State.CurrentHealth <= 0)
+            State.CurrentHealth = Config.MaxHealth;
+
         RocketController.IsPaused = true;
         RocketController.SetPosition(0, 0, 0);
         RocketController.SetPitch(0);
-        Hud.CreateStartLevelImage();
-        Hud.OnStartLevelImageClosed += OnStartLevelImageClosed;
+        Hud.OnStartLevelWindowClosed = OnStartLevelWindowClosed;
+        Hud.CreateStartLevelWindow();
     }
 
     public void Pause()
@@ -64,16 +66,28 @@ public class PlayStrategy
 
 
 
-    private void OnStartLevelImageClosed()
+    private void EndLevel()
+    {
+        RocketController.IsPaused = true;
+        State.CurrentHealth--;
+
+        if (State.CurrentHealth > 0)
+            LoseLevel();
+        else
+            LoseGame();
+    }
+
+    private void OnStartLevelWindowClosed()
     {
         RocketController.IsPaused = false;
         RocketController.Move(Config.StartSpeed);
-        Hud.OnStartLevelImageClosed -= OnStartLevelImageClosed;
     }
 
-    private void OnLoseLevelImageClosed()
+    private void SetScore(int score)
     {
-        StartLevel();
-        Hud.OnLoseLevelImageClosed -= OnLoseLevelImageClosed;
+        State.CurrentScore = score;
+
+        if (State.BestScore < State.CurrentScore)
+            State.BestScore = State.CurrentScore;
     }
 }
