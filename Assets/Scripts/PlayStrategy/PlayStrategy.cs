@@ -3,9 +3,11 @@
     public State State;
     public RocketController RocketController;
 
-    private FollowCamera Camera;
     protected HudGame Hud;
     protected Config Config;
+
+    private CheckpointsManager CheckpointsManager;
+    private FollowCamera Camera;
 
     public PlayStrategy(RocketController rocketController)
     {
@@ -16,12 +18,18 @@
         Hud = (HudGame)HudBase.Instance;
         Config = Config.Instance;
 
+        CheckpointsManager = new CheckpointsManager();
+        CheckpointsManager.OnCheckpointActivated += OnCheckpoint;
+        CheckpointsManager.GenerateCheckpoints(Config.CheckpointsCount, Config.StartCheckpointScore, Config.CheckpointsInterval);
+
         State = new State();
         //  State = Data.LoadState();
         State.CurrentHealth = Config.MaxHealth;
 
         StartLevel();
     }
+
+
 
     virtual public void Update()
     {
@@ -75,6 +83,11 @@
             LoseLevel();
         else
             LoseGame();
+    }
+
+    private void OnCheckpoint(Checkpoint checkpoint)
+    {
+        UnityEngine.MonoBehaviour.print("OnCheckpoint");
     }
 
     private void OnStartLevelWindowClosed()

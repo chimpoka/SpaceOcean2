@@ -19,7 +19,7 @@ public class RocketController
     {
         GameObject RocketObject = MonoBehaviour.Instantiate(Resources.Load("Rocket"), new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
         Rocket = RocketObject.GetComponent<Rocket>();
-        Rocket.OnCollide += () => OnRocketDied();
+        Rocket.OnDied += () => OnRocketDied();
     }
 
     virtual public void Update()

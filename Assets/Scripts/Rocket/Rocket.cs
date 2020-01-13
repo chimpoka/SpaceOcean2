@@ -2,7 +2,8 @@
 
 public class Rocket : MonoBehaviour
 {
-    public event System.Action OnCollide; 
+    public event System.Action OnDied;
+
 
     public void MoveForward(float units)
     {
@@ -50,6 +51,7 @@ public class Rocket : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        OnCollide();
+        if (other.GetComponent<Checkpoint>() == null)
+            OnDied();
     }
 }

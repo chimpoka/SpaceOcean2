@@ -2,10 +2,11 @@
 
 public class Checkpoint : MonoBehaviour
 {
-    public System.Action OnActivate;
+    
+    public TypesHolder.OnCheckpointActivatedDelegate OnActivated;
 
     private void OnTriggerEnter(Collider other)
     {
-        OnActivate();
+        OnActivated(this);
     }
 }

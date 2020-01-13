@@ -12,4 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 612a8a3608de21847813cc76cc17bf28, type: 3}
   m_Name: Config
   m_EditorClassIdentifier: 
-  StartSpeed: 5
+  StartSpeed: 3
+  MaxHealth: 3
+  CheckpointsCount: 10
+  StartCheckpointScore: 5
+  CheckpointsInterval: 5

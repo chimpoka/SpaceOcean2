@@ -14,13 +14,13 @@
 
     private PlayStrategy CreateStrategy(RocketController rocketController)
     {
-        EnumsHolder.PlayMode playMode = GameInstance.Instance.PlayMode;
+        TypesHolder.PlayMode playMode = GameInstance.Instance.PlayMode;
 
-        if (playMode == EnumsHolder.PlayMode.Normal)
+        if (playMode == TypesHolder.PlayMode.Normal)
         {
             return new PlayStrategy(rocketController);
         }
-        else if (playMode == EnumsHolder.PlayMode.Tutorial)
+        else if (playMode == TypesHolder.PlayMode.Tutorial)
         {
             return new TutorialPlayStrategy(rocketController);
         }
@@ -33,13 +33,13 @@
 
     private RocketController CreateRocketController()
     {
-        EnumsHolder.ControllerMode mode = GameInstance.Instance.ControllerMode;
+        TypesHolder.ControllerMode mode = GameInstance.Instance.ControllerMode;
 
-        if (mode == EnumsHolder.ControllerMode.Accelerometer)
+        if (mode == TypesHolder.ControllerMode.Accelerometer)
         {
             return new AccelerometerRocketController();
         }
-        else if (mode == EnumsHolder.ControllerMode.Touchscreen)
+        else if (mode == TypesHolder.ControllerMode.Touchscreen)
         {
             return new TouchscreenRocketController();
         }

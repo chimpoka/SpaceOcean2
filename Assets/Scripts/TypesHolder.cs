@@ -1,9 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class EnumsHolder
+﻿public class TypesHolder
 {
     public enum ControllerMode {Touchscreen, Accelerometer};
     public enum PlayMode { Normal, Tutorial};
+
+    public delegate void OnCheckpointActivatedDelegate(Checkpoint checkpoint);
 }

@@ -17,13 +17,13 @@ public class TutorialPlayStrategy : PlayStrategy
         
     }
 
-    private Tutorial CreateTutorial(EnumsHolder.ControllerMode controllerMode)
+    private Tutorial CreateTutorial(TypesHolder.ControllerMode controllerMode)
     {
-        if (controllerMode == EnumsHolder.ControllerMode.Accelerometer)
+        if (controllerMode == TypesHolder.ControllerMode.Accelerometer)
         {
             return new AccelerometerTutorial();
         }
-        else if (controllerMode == EnumsHolder.ControllerMode.Touchscreen)
+        else if (controllerMode == TypesHolder.ControllerMode.Touchscreen)
         {
             return new TouchscreenTutorial();
         }
