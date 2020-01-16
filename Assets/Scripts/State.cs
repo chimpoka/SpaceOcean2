@@ -1,11 +1,10 @@
 ﻿public class State
 {
     private HudGame Hud;
-
     private int currentScore;
     private int bestScore;
     private int currentHealth;
-    //private Checkpoint currentCheckpoint;
+    private float currentCheckpointScore;
 
     public State()
     {
@@ -41,4 +40,6 @@
             Hud.CurrentHealth.SetText(currentHealth.ToString());
         }
     }
+
+    public float CurrentCheckpointScore { get => currentCheckpointScore; set => currentCheckpointScore = value; }
 }

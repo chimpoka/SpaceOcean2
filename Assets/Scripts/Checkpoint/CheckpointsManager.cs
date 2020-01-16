@@ -5,6 +5,7 @@ public class CheckpointsManager
     public TypesHolder.OnCheckpointActivatedDelegate OnCheckpointActivated;
 
     private GameObject CheckpointsContainerObject;
+    private Checkpoint[] Checkpoints;
 
 
 
@@ -15,11 +16,23 @@ public class CheckpointsManager
 
     public void GenerateCheckpoints(int count, float startScore, float interval)
     {
+        Checkpoints = new Checkpoint[count];
+
         for (int i = 0; i < count; i++)
         {
             GameObject checkpointObj = InstantiatePrefab("Checkpoint");
             checkpointObj.transform.position = new Vector3(i * interval + startScore, 0, 0);
-            checkpointObj.GetComponent<Checkpoint>().OnActivated += OnCheckpointActivated;
+            Checkpoint checkpoint = checkpointObj.GetComponent<Checkpoint>();
+            checkpoint.OnActivated += OnCheckpointActivated;
+            Checkpoints[i] = checkpoint;
+        }
+    }
+
+    public void ActivateAllCheckpoins(bool value)
+    {
+        foreach (Checkpoint checkpoint in Checkpoints)
+        {
+            checkpoint.IsActivated = value;
         }
     }
 

@@ -56,7 +56,7 @@
             State.CurrentHealth = Config.MaxHealth;
 
         RocketController.IsPaused = true;
-        RocketController.SetPosition(0, 0, 0);
+        RocketController.SetPosition(State.CurrentCheckpointScore, 0, 0);
         RocketController.SetPitch(0);
         Hud.OnStartLevelWindowClosed = OnStartLevelWindowClosed;
         Hud.CreateStartLevelWindow();
@@ -80,14 +80,20 @@
         State.CurrentHealth--;
 
         if (State.CurrentHealth > 0)
+        {
             LoseLevel();
+        }
         else
+        {
+            State.CurrentCheckpointScore = 0;
+            CheckpointsManager.ActivateAllCheckpoins(false);
             LoseGame();
+        }
     }
 
     private void OnCheckpoint(Checkpoint checkpoint)
     {
-        UnityEngine.MonoBehaviour.print("OnCheckpoint");
+        State.CurrentCheckpointScore = State.CurrentScore;
     }
 
     private void OnStartLevelWindowClosed()

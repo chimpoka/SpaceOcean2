@@ -4,9 +4,18 @@ public class Checkpoint : MonoBehaviour
 {
     
     public TypesHolder.OnCheckpointActivatedDelegate OnActivated;
+    public bool IsActivated = false;
 
-    private void OnTriggerEnter(Collider other)
+
+    private void OnTriggerStay(Collider other)
     {
-        OnActivated(this);
+        if (IsActivated)
+            return;
+
+        if (other.transform.position.x > transform.position.x)
+        {
+            OnActivated(this);
+            IsActivated = true;
+        }
     }
 }
