@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class HudBase : MonoBehaviour
 {
@@ -21,5 +19,14 @@ public class HudBase : MonoBehaviour
     private void Awake()
     {
         instance = this;
+    }
+
+
+
+    public GameObject InstantiateUIPrefab(string path)
+    {
+        GameObject obj = Instantiate(Resources.Load(path)) as GameObject;
+        obj.transform.SetParent(gameObject.transform, false);
+        return obj;
     }
 }

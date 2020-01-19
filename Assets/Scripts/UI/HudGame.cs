@@ -41,16 +41,9 @@ public class HudGame : HudBase
 
     private void CreateSimpleClickableWindow(string path, System.Action action)
     {
-        GameObject obj = InstantiatePrefab(path);
+        GameObject obj = InstantiateUIPrefab(path);
         UIEventHandler Event = obj.GetComponent<UIEventHandler>();
         Event.OnClick += () => Destroy(obj);
         Event.OnClick += action;
-    }
-
-    private GameObject InstantiatePrefab(string path)
-    {
-        GameObject obj = Instantiate(Resources.Load(path)) as GameObject;
-        obj.transform.SetParent(gameObject.transform, false);
-        return obj;
     }
 }

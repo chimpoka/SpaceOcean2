@@ -11,7 +11,7 @@ public class CheckpointsManager
 
     public CheckpointsManager()
     {
-        CheckpointsContainerObject = MonoBehaviour.Instantiate(new GameObject("Checkpoints"));
+        CheckpointsContainerObject = new GameObject("Checkpoints");
     }
 
     public void GenerateCheckpoints(int count, float startScore, float interval)

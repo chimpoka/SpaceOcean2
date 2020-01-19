@@ -1,10 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using TMPro;
 using UnityEngine;
 
 public class HudMainMenu : HudBase
 {
-    public int test = 10;
+    public System.Action OnPlay;
 
     void Start()
     {
@@ -14,5 +13,10 @@ public class HudMainMenu : HudBase
     void Update()
     {
         
+    }
+
+    public void OnPlayButton()
+    {
+        OnPlay();
     }
 }
