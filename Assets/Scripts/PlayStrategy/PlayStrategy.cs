@@ -22,9 +22,7 @@
         CheckpointsManager.OnCheckpointActivated += OnCheckpoint;
         CheckpointsManager.GenerateCheckpoints(Config.CheckpointsCount, Config.StartCheckpointScore, Config.CheckpointsInterval);
 
-        State = new State();
-        //  State = Data.LoadState();
-        State.CurrentHealth = Config.MaxHealth;
+        State = SaveSystem.LoadState();
 
         StartLevel();
     }
@@ -89,6 +87,8 @@
             CheckpointsManager.ActivateAllCheckpoins(false);
             LoseGame();
         }
+
+        SaveSystem.SaveState(State);
     }
 
     private void OnCheckpoint(Checkpoint checkpoint)

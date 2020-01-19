@@ -1,15 +1,24 @@
 ﻿public class State
 {
-    private HudGame Hud;
-    private int currentScore;
-    private int bestScore;
-    private int currentHealth;
-    private float currentCheckpointScore;
+    private HudGame Hud = (HudGame)HudBase.Instance;
+    private int currentScore = 0;
+    private int bestScore = 0;
+    private int currentHealth = Config.Instance.MaxHealth;
+    private int currentCheckpointScore = 0;
 
     public State()
     {
-        Hud = (HudGame)HudBase.Instance;
+
     }
+
+    public State(StateData data)
+    {
+        CurrentScore = data.CurrentScore;
+        BestScore = data.BestScore;
+        CurrentHealth = data.CurrentHealth;
+        CurrentCheckpointScore = data.CurrentCheckpointScore;
+    }
+
     
     public int CurrentScore
     {
@@ -41,5 +50,5 @@
         }
     }
 
-    public float CurrentCheckpointScore { get => currentCheckpointScore; set => currentCheckpointScore = value; }
+    public int CurrentCheckpointScore { get => currentCheckpointScore; set => currentCheckpointScore = value; }
 }
