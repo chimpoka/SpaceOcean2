@@ -27,8 +27,6 @@ public class TutorialPlayStrategy : PlayStrategy
 
     override protected void OnCheckpoint()
     {
-        
-
         if (CheckpointTutorialCompleted)
         {
             base.OnCheckpoint();
