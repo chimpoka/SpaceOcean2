@@ -29,7 +29,6 @@ public class LevelLoader
         foreach (LevelLoaderAnimatorEvent animEvent in LLAE)
         {
             animEvent.gameObject.SetActive(false);
-            MonoBehaviour.print(animEvent.gameObject);
         }
 
         LLAE[0].gameObject.SetActive(true);

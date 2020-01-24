@@ -5,6 +5,7 @@
     private void Start()
     {
         Strategy = CreateStrategy(CreateRocketController());
+        Strategy.StartLevel();
     }
 
     private void Update()

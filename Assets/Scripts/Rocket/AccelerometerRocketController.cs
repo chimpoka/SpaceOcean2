@@ -6,7 +6,7 @@ public class AccelerometerRocketController : RocketController
 
     public override void Update()
     {
-        if (IsPaused)
+        if (Paused)
             return;
 
         SetPitchSmooth(Mathf.Clamp(GetDeviceAngle() * RotationPower, -MaxAngle,  MaxAngle));

@@ -4,7 +4,7 @@ public class TouchscreenRocketController : RocketController
 {
     public override void Update()
     {
-        if (IsPaused)
+        if (Paused)
             return;
 
         if (Input.GetMouseButton(0))

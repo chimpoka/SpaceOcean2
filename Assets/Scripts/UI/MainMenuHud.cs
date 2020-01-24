@@ -1,7 +1,7 @@
 ﻿using TMPro;
 using UnityEngine;
 
-public class HudMainMenu : HudBase
+public class MainMenuHud : HudBase
 {
     public System.Action OnPlay;
 

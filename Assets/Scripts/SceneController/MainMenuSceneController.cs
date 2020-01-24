@@ -2,7 +2,7 @@
 
 public class MainMenuSceneController : SceneControllerBase
 {
-    HudMainMenu Hud;
+    MainMenuHud Hud;
 
     private void Start()
     {
@@ -10,7 +10,7 @@ public class MainMenuSceneController : SceneControllerBase
         GameInstance GI = GameInstance.Instance;
         Config C = Config.Instance;
 
-        Hud = (HudMainMenu)HudBase.Instance;
+        Hud = (MainMenuHud)HudBase.Instance;
         Hud.OnPlay += OnPlay;
     }
 

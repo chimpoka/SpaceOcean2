@@ -1,9 +1,11 @@
-﻿public class PlayStrategy
+﻿using System;
+
+public class PlayStrategy
 {
     public State State;
     public RocketController RocketController;
 
-    protected HudGame Hud;
+    protected GameHud Hud;
     protected Config Config;
 
     private CheckpointsManager CheckpointsManager;
@@ -15,49 +17,93 @@
         RocketController.OnRocketDied += EndLevel;
 
         Camera = new FollowCamera(RocketController.Rocket.gameObject);
-        Hud = (HudGame)HudBase.Instance;
+        Hud = (GameHud)HudBase.Instance;
         Config = Config.Instance;
 
         CheckpointsManager = new CheckpointsManager();
-        CheckpointsManager.OnCheckpointActivated += OnCheckpoint;
+        CheckpointsManager.OnCheckpointActivated += UpdateCheckpointScore;
         CheckpointsManager.GenerateCheckpoints(Config.CheckpointsCount, Config.StartCheckpointScore, Config.CheckpointsInterval);
 
         State = SaveSystem.LoadState();
-
-        StartLevel();
     }
 
 
 
-    virtual public void Update()
+    virtual protected void OnStartLevel()
+    {
+        Hud.CreateStartLevelWindow().OnClick += () => { RocketController.Paused = false; } ;
+    }
+
+    virtual protected void OnLoseLevel()
+    {
+        Hud.CreateLoseLevelWindow().OnClick += StartLevel;
+    }
+
+    virtual protected void OnLoseGame()
+    {
+        Hud.CreateLoseGameWindow().OnClick += StartLevel;
+    }
+
+    virtual protected void OnCheckpoint()
+    {
+        
+    }
+
+
+
+    public void Update()
     {
         RocketController.Update();
         Camera.Update();
-        SetScore( (int)RocketController.GetPosition().x );
+        UpdateScore((int)RocketController.GetPosition().x);
     }
 
-    virtual public void LoseLevel()
+    public void StartLevel()
     {
-        Hud.OnLoseLevelWindowClosed = StartLevel;
-        Hud.CreateLoseLevelWindow();
+        ResetRocketToLastCheckpoint();
+        OnStartLevel();
     }
 
-    virtual public void LoseGame()
+    private void ResetRocketToLastCheckpoint()
     {
-        Hud.OnLoseGameWindowClosed = StartLevel;
-        Hud.CreateLoseGameWindow();
-    }
-
-    virtual public void StartLevel()
-    {
-        if (State.CurrentHealth <= 0)
-            State.CurrentHealth = Config.MaxHealth;
-
-        RocketController.IsPaused = true;
+        RocketController.Paused = true;
         RocketController.SetPosition(State.CurrentCheckpointScore, 0, 0);
         RocketController.SetPitch(0);
-        Hud.OnStartLevelWindowClosed = OnStartLevelWindowClosed;
-        Hud.CreateStartLevelWindow();
+        RocketController.SetSpeed(Config.StartSpeed);
+    }
+
+    protected void EndLevel()
+    {
+        RocketController.Paused = true;
+        State.CurrentHealth--;
+
+        if (State.CurrentHealth > 0)
+        {
+            OnLoseLevel();
+        }
+        else
+        {
+            State.CurrentCheckpointScore = 0;
+            State.CurrentHealth = Config.MaxHealth;
+            CheckpointsManager.ActivateAllCheckpoins(false);
+            OnLoseGame();
+        }
+
+        SaveSystem.SaveState(State);
+    }
+
+    private void UpdateCheckpointScore(Checkpoint checkpoint)
+    {
+        State.CurrentCheckpointScore = State.CurrentScore;
+        OnCheckpoint();
+    }
+
+    private void UpdateScore(int score)
+    {
+        State.CurrentScore = score;
+
+        if (State.BestScore < State.CurrentScore)
+            State.BestScore = State.CurrentScore;
     }
 
     public void Pause()
@@ -67,46 +113,6 @@
 
     public void Resume()
     {
-
-    }
-
-
-
-    private void EndLevel()
-    {
-        RocketController.IsPaused = true;
-        State.CurrentHealth--;
-
-        if (State.CurrentHealth > 0)
-        {
-            LoseLevel();
-        }
-        else
-        {
-            State.CurrentCheckpointScore = 0;
-            CheckpointsManager.ActivateAllCheckpoins(false);
-            LoseGame();
-        }
-
-        SaveSystem.SaveState(State);
-    }
-
-    private void OnCheckpoint(Checkpoint checkpoint)
-    {
-        State.CurrentCheckpointScore = State.CurrentScore;
-    }
-
-    private void OnStartLevelWindowClosed()
-    {
-        RocketController.IsPaused = false;
-        RocketController.Move(Config.StartSpeed);
-    }
-
-    private void SetScore(int score)
-    {
-        State.CurrentScore = score;
-
-        if (State.BestScore < State.CurrentScore)
-            State.BestScore = State.CurrentScore;
+        
     }
 }

@@ -1,51 +1,58 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class TutorialPlayStrategy : PlayStrategy
 {
-    private Tutorial Tutorial;
+    private bool HowToPlayTutorialCompleted = false;
+    private bool CheckpointTutorialCompleted = false;
+    private bool HealthTutorialCompleted = false;
 
     public TutorialPlayStrategy(RocketController rocketController) : base(rocketController)
-    {
-        Tutorial = CreateTutorial(GameInstance.Instance.ControllerMode);
-        Tutorial.OnHowToPlayInfoWindowClosed += OnCloseHowToPlayInfoWindow;
-        Tutorial.OnCheckpointInfoWindowClosed += OnCloseCheckpointInfoWindow;
-        Tutorial.OnHealthInfoWindowClosed += OnCloseHealthInfoWindow;
-    }
+    { }
 
-    public override void Update()
-    {
-        
-    }
 
-    private Tutorial CreateTutorial(TypesHolder.ControllerMode controllerMode)
+
+    override protected void OnStartLevel()
     {
-        if (controllerMode == TypesHolder.ControllerMode.Accelerometer)
+        if (HowToPlayTutorialCompleted)
         {
-            return new AccelerometerTutorial();
-        }
-        else if (controllerMode == TypesHolder.ControllerMode.Touchscreen)
-        {
-            return new TouchscreenTutorial();
+            base.OnStartLevel();
         }
         else
         {
-            MonoBehaviour.print("ControllerMode '" + controllerMode + "' is not valid");
-            return null;
+            Hud.CreateHowToPlayInfoWindow().OnClick += base.OnStartLevel;
+            HowToPlayTutorialCompleted = true;
         }
     }
 
-    private void OnCloseHowToPlayInfoWindow()
+    override protected void OnCheckpoint()
     {
+        
 
+        if (CheckpointTutorialCompleted)
+        {
+            base.OnCheckpoint();
+        }
+        else
+        {
+            RocketController.Paused = true;
+            UIEventHandler Event = Hud.CreateCheckpointInfoWindow();
+            Event.OnClick += base.OnCheckpoint;
+            Event.OnClick += () => { RocketController.Paused = false; };
+            CheckpointTutorialCompleted = true;
+        }
     }
 
-    private void OnCloseCheckpointInfoWindow()
+    override protected void OnLoseLevel()
     {
-
-    }
-
-    private void OnCloseHealthInfoWindow()
-    {
-
+        if (HealthTutorialCompleted)
+        {
+            base.OnLoseLevel();
+        }
+        else
+        {
+            Hud.CreateHealthInfoWindow().OnClick += base.OnLoseLevel;
+            HealthTutorialCompleted = true;
+        }
     }
 }

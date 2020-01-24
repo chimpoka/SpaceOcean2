@@ -3,7 +3,7 @@
 public class RocketController
 {
     public Rocket Rocket;
-    public bool IsPaused;
+    public bool Paused;
     public event System.Action OnRocketDied;
 
     protected float MaxAngle = 45.0f;
@@ -24,7 +24,7 @@ public class RocketController
 
     virtual public void Update()
     {
-        if (IsPaused)
+        if (Paused)
             return;
 
         MoveInternal(Time.deltaTime);
@@ -32,14 +32,9 @@ public class RocketController
         SetRollSmoothInternal(Time.deltaTime);
     }
 
-    public void Move(float speed)
+    public void SetSpeed(float speed)
     {
         MoveSpeed = speed;
-    }
-
-    public void StopMove()
-    {
-        MoveSpeed = 0;
     }
 
     public void SetPitchSmooth(float desiredAngle)
