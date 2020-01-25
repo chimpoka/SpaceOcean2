@@ -7,53 +7,61 @@ public class GameHud : HudBase
     public TextMeshProUGUI BestScore;
     public TextMeshProUGUI CurrentHealth;
 
+    public GameObject StartLevelWindow;
+    public GameObject LoseLevelWindow;
+    public GameObject LoseGameWindow;
+    public GameObject AccelerometerHowToPlayInfoWindow;
+    public GameObject TouchscreenHowToPlayInfoWindow;
+    public GameObject CheckpointInfoWindow;
+    public GameObject HealthInfoWindow;
+
 
 
     public UIEventHandler CreateStartLevelWindow()
     {
-        return CreateSimpleClickableWindow("HUD/StartLevelWindow");
+        return CreateSimpleClickableWindow(StartLevelWindow);
     }
 
     public UIEventHandler CreateLoseLevelWindow()
     {
-        return CreateSimpleClickableWindow("HUD/LoseLevelWindow");
+        return CreateSimpleClickableWindow(LoseLevelWindow);
     }
 
     public UIEventHandler CreateLoseGameWindow()
     {
-        return CreateSimpleClickableWindow("HUD/LoseGameWindow");
+        return CreateSimpleClickableWindow(LoseGameWindow);
     }
 
     public UIEventHandler CreateHowToPlayInfoWindow()
     {
         if (GameInstance.Instance.ControllerMode == TypesHolder.ControllerMode.Accelerometer)
-            return CreateSimpleClickableWindow("HUD/Tutorial/AccelerometerHowToPlayInfoWindow");
+            return CreateSimpleClickableWindow(AccelerometerHowToPlayInfoWindow);
         else if (GameInstance.Instance.ControllerMode == TypesHolder.ControllerMode.Touchscreen)
-            return CreateSimpleClickableWindow("HUD/Tutorial/TouchscreenHowToPlayInfoWindow");
+            return CreateSimpleClickableWindow(TouchscreenHowToPlayInfoWindow);
         else
             return null;
     }
 
     public UIEventHandler CreateCheckpointInfoWindow()
     {
-        return CreateSimpleClickableWindow("HUD/Tutorial/CheckpointInfoWindow");
+        return CreateSimpleClickableWindow(CheckpointInfoWindow);
     }
 
     public UIEventHandler CreateHealthInfoWindow()
     {
-        return CreateSimpleClickableWindow("HUD/Tutorial/HealthInfoWindow");
+        return CreateSimpleClickableWindow(HealthInfoWindow);
     }
 
 
 
-    protected UIEventHandler CreateSimpleClickableWindow(string path)
+    protected UIEventHandler CreateSimpleClickableWindow(GameObject window)
     {
-        GameObject obj = InstantiateUIPrefab(path);
+        GameObject obj = InstantiateUIPrefab(window);
         UIEventHandler Event = obj.GetComponent<UIEventHandler>();
 
         if (Event == null)
         {
-            print("Can't get UIEventHandler component from '" + path + "'");
+            print("Can't get UIEventHandler component from '" + window + "'");
             return null;
         }
 

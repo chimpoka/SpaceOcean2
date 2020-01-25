@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1954142533724111080}
   - component: {fileID: -2154667209550014041}
   m_Layer: 5
-  m_Name: StartLevelImage
+  m_Name: StartLevelWindow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -156,7 +156,7 @@ MonoBehaviour:
   m_text: Touch To Start
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: 5ec1308ad95e3c04083ac7fc87e1f04c, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

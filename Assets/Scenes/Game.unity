@@ -1742,6 +1742,20 @@ MonoBehaviour:
   CurrentScore: {fileID: 328102235}
   BestScore: {fileID: 1160687210}
   CurrentHealth: {fileID: 266372281}
+  StartLevelWindow: {fileID: 5526129835235841963, guid: df5ffecc1c013b94999f53c28f43caff,
+    type: 3}
+  LoseLevelWindow: {fileID: 4995049398145627714, guid: 544f4c3639314fa4d856e13ff5bd9f84,
+    type: 3}
+  LoseGameWindow: {fileID: 7400029485909530150, guid: 14b3a004b88629342bb0a22ac0a78d38,
+    type: 3}
+  AccelerometerHowToPlayInfoWindow: {fileID: 2734946475500528702, guid: 242d4e9194c09fd4a9b4f02dac9e11d0,
+    type: 3}
+  TouchscreenHowToPlayInfoWindow: {fileID: 6547593867513619172, guid: 78c25c484069e0940b7e90052af6d527,
+    type: 3}
+  CheckpointInfoWindow: {fileID: 8117821839720152364, guid: 42fbce5507dae8b4daf60f598297f026,
+    type: 3}
+  HealthInfoWindow: {fileID: 3189247871318974274, guid: f1fe6f4e1c394c941b59278d86be01f9,
+    type: 3}
 --- !u!114 &1437166526
 MonoBehaviour:
   m_ObjectHideFlags: 0

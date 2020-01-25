@@ -29,4 +29,11 @@ public class HudBase : MonoBehaviour
         obj.transform.SetParent(gameObject.transform, false);
         return obj;
     }
+
+    public GameObject InstantiateUIPrefab(GameObject prefab)
+    {
+        GameObject obj = Instantiate(prefab);
+        obj.transform.SetParent(gameObject.transform, false);
+        return obj;
+    }
 }

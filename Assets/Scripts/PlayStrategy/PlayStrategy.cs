@@ -1,6 +1,4 @@
-﻿using System;
-
-public class PlayStrategy
+﻿public class PlayStrategy
 {
     public State State;
     public RocketController RocketController;

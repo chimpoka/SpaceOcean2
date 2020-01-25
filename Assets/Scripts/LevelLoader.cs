@@ -22,7 +22,7 @@ public class LevelLoader
 
     private LevelLoaderAnimatorEvent CreateLoadLevelAnimatorEvent()
     {
-        LevelLoaderObject = MonoBehaviour.Instantiate(Resources.Load("HUD/LevelLoader/LevelLoader")) as GameObject;
+        LevelLoaderObject = MonoBehaviour.Instantiate(Resources.Load("HUD/GameScene/LevelLoader/LevelLoader")) as GameObject;
 
         LevelLoaderAnimatorEvent[] LLAE = LevelLoaderObject.GetComponentsInChildren<LevelLoaderAnimatorEvent>(true);
 

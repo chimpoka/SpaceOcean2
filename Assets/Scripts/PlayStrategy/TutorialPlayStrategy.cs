@@ -1,7 +1,4 @@
-﻿using System;
-using UnityEngine;
-
-public class TutorialPlayStrategy : PlayStrategy
+﻿public class TutorialPlayStrategy : PlayStrategy
 {
     private bool HowToPlayTutorialCompleted = false;
     private bool CheckpointTutorialCompleted = false;

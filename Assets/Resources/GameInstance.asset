@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: GameInstance
   m_EditorClassIdentifier: 
   ControllerMode: 0
-  PlayMode: 0
+  PlayMode: 1

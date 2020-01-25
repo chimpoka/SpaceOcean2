@@ -5,6 +5,7 @@ public class GameInstance : SingletonScriptableObject<GameInstance>
 {
     public TypesHolder.ControllerMode ControllerMode;
     public TypesHolder.PlayMode PlayMode;
+    public bool PlayTutorial;
 
     public void LoadMainMenuScene()
     {
