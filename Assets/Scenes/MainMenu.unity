@@ -470,6 +470,8 @@ MonoBehaviour:
     type: 3}
   PlayMenuWindow: {fileID: 7123404153466735325, guid: b88ea4e05db17df4f90696fb6a08d576,
     type: 3}
+  OptionsMenuWindow: {fileID: 8224663177459173120, guid: 76b519a790724c24c8e187185ac50f7d,
+    type: 3}
 --- !u!114 &1801963301
 MonoBehaviour:
   m_ObjectHideFlags: 0

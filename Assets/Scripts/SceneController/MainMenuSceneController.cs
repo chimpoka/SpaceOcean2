@@ -23,7 +23,7 @@ public class MainMenuSceneController : SceneControllerBase
 
     private void OnOptions()
     {
-
+        OpenOptionsWindow();
     }
 
     private void OnQuit()
@@ -57,6 +57,13 @@ public class MainMenuSceneController : SceneControllerBase
 
 
 
+    private void OnBackOptionsMenu()
+    {
+        OpenMainMenuWindow();
+    }
+
+
+
     private void OpenMainMenuWindow()
     {
         MainMenuWindow MainMenuWindow = Hud.CreateMainMenuWindow();
@@ -74,11 +81,9 @@ public class MainMenuSceneController : SceneControllerBase
         PlayMenuWindow.OnTutorial += OnTutorial;
     }
 
-    private void CreateOptionsWindow()
+    private void OpenOptionsWindow()
     {
-        //MainMenuWindow MainMenuWindow = Hud.CreateMainMenuWindow();
-        //MainMenuWindow.OnPlay += OnPlay;
-        //MainMenuWindow.OnOptions += OnOptions;
-        //MainMenuWindow.OnQuit += OnQuit;
+        OptionsMenuWindow OptionsMenuWindow = Hud.CreateOptionsMenuWindow();
+        OptionsMenuWindow.OnBack += OnBackPlayMenu;
     }
 }

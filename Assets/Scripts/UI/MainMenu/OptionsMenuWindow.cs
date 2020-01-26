@@ -4,15 +4,11 @@ using UnityEngine;
 
 public class OptionsMenuWindow : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public System.Action OnBack;
 
-    // Update is called once per frame
-    void Update()
+
+    public void OnBackButton()
     {
-        
+        OnBack();
     }
 }
