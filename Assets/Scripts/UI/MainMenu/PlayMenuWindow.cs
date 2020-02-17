@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayMenuWindow : MonoBehaviour
 {
@@ -29,7 +30,11 @@ public class PlayMenuWindow : MonoBehaviour
 
     public void OnTutorialToggle(bool value)
     {
-        print("TUT!) " + value);
         OnTutorial(value); 
+    }
+
+    public void SetTutorialToggle(bool value)
+    {
+        GetComponentInChildren<Toggle>().isOn = value;
     }
 }

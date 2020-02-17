@@ -15,6 +15,16 @@ public class GameHud : HudBase
     public GameObject CheckpointInfoWindow;
     public GameObject HealthInfoWindow;
 
+    public System.Action OnPause;
+
+
+
+    public void OnPauseButton()
+    {
+
+        OnPause();
+    }
+
 
 
     public UIEventHandler CreateStartLevelWindow()
@@ -33,7 +43,7 @@ public class GameHud : HudBase
     }
 
     public UIEventHandler CreateHowToPlayInfoWindow()
-    {
+    { 
         if (GameInstance.Instance.ControllerMode == TypesHolder.ControllerMode.Accelerometer)
             return CreateSimpleClickableWindow(AccelerometerHowToPlayInfoWindow);
         else if (GameInstance.Instance.ControllerMode == TypesHolder.ControllerMode.Touchscreen)
@@ -54,7 +64,7 @@ public class GameHud : HudBase
 
 
 
-    protected UIEventHandler CreateSimpleClickableWindow(GameObject window)
+    private UIEventHandler CreateSimpleClickableWindow(GameObject window)
     {
         GameObject obj = InstantiateUIPrefab(window);
         UIEventHandler Event = obj.GetComponent<UIEventHandler>();
