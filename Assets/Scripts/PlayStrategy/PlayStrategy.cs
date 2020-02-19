@@ -15,8 +15,10 @@
         RocketController.OnRocketDied += EndLevel;
 
         Camera = new FollowCamera(RocketController.Rocket.gameObject);
-        Hud = (GameHud)HudBase.Instance;
         Config = Config.Instance;
+
+        Hud = (GameHud)HudBase.Instance;
+        Hud.OnPause += Pause;
 
         CheckpointsManager = new CheckpointsManager();
         CheckpointsManager.OnCheckpointActivated += UpdateCheckpointScore;
@@ -106,7 +108,10 @@
 
     public void Pause()
     {
-
+        PauseMenuWindow window = Hud.CreatePauseMenuWindow();
+        window.OnResume += Resume;
+        // window.OnNewGame += 
+        // ...
     }
 
     public void Resume()

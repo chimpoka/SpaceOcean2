@@ -4,15 +4,34 @@ using UnityEngine;
 
 public class PauseMenuWindow : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public System.Action OnResume;
+    public System.Action OnNewGame;
+    public System.Action OnOptions;
+    public System.Action OnMainMenu;
+    public System.Action OnQuit;
+
+    public void OnResumeButton()
     {
-        
+        OnResume();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void OnNewGameButton()
     {
-        
+        OnNewGame();
+    }
+
+    public void OnOptionsButton()
+    {
+        OnOptions();
+    }
+
+    public void OnMainMenuButton()
+    {
+        OnMainMenu();
+    }
+    
+    public void OnQuitButton()
+    {
+        OnQuit();
     }
 }

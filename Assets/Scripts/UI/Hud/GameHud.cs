@@ -15,13 +15,25 @@ public class GameHud : HudBase
     public GameObject CheckpointInfoWindow;
     public GameObject HealthInfoWindow;
 
+    public PauseMenuWindow PauseMenuWindow;
     public System.Action OnPause;
 
 
 
+    public PauseMenuWindow CreatePauseMenuWindow()
+    {
+        PauseMenuWindow window = Instantiate(PauseMenuWindow, transform);
+        window.OnResume += () => Destroy(window.gameObject);
+        window.OnNewGame += () => Destroy(window.gameObject);
+        window.OnOptions += () => Destroy(window.gameObject);
+        window.OnMainMenu += () => Destroy(window.gameObject);
+        window.OnQuit += () => Destroy(window.gameObject);
+
+        return window;
+    }
+
     public void OnPauseButton()
     {
-
         OnPause();
     }
 
