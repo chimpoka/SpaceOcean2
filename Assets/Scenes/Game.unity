@@ -1889,6 +1889,8 @@ MonoBehaviour:
     type: 3}
   PauseMenuWindow: {fileID: 8443654648426726842, guid: c776844c4fc98344eaae62929dd8a167,
     type: 3}
+  OptionsMenuWindow: {fileID: 8224663177459173120, guid: 76b519a790724c24c8e187185ac50f7d,
+    type: 3}
 --- !u!114 &1437166526
 MonoBehaviour:
   m_ObjectHideFlags: 0
