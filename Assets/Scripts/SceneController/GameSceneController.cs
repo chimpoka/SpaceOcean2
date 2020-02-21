@@ -1,17 +1,79 @@
-﻿public class GameSceneController : SceneControllerBase
+﻿using UnityEngine;
+
+public class GameSceneController : SceneControllerBase
 {
     private PlayStrategy Strategy;
+    private GameHud Hud;
+
+
 
     private void Start()
     {
         Strategy = CreateStrategy(CreateRocketController());
         Strategy.StartLevel();
+
+        Hud = (GameHud)HudBase.Instance;
+        Hud.OnPause += Pause;
     }
 
     private void Update()
     {
         Strategy.Update();
     }
+
+
+
+    private void Pause()
+    {
+        Strategy.Pause();
+        OpenPauseMenuWindow();
+    }
+
+    private void Resume()
+    {
+        Strategy.Resume();
+    }
+
+    private void NewGame()
+    {
+        Strategy.StartNewGame();
+    }
+
+    private void OpenOptions()
+    {
+        OpenOptionsWindow();
+    }
+
+    private void OpenMainMenu()
+    {
+        LevelLoader LevelLoader = new LevelLoader();
+        LevelLoader.LoadLevel(0);
+    }
+
+    private void Quit()
+    {
+        Application.Quit();
+    }
+
+
+
+    void OpenPauseMenuWindow()
+    {
+        PauseMenuWindow window = Hud.CreatePauseMenuWindow();
+        window.OnResume += Resume;
+        window.OnNewGame += NewGame;
+        window.OnOptions += OpenOptions;
+        window.OnMainMenu += OpenMainMenu;
+        window.OnQuit += Quit;
+    }
+
+    private void OpenOptionsWindow()
+    {
+        OptionsMenuWindow OptionsMenuWindow = Hud.CreateOptionsMenuWindow();
+        OptionsMenuWindow.OnBack += OpenPauseMenuWindow;
+    }
+
+
 
     private PlayStrategy CreateStrategy(RocketController rocketController)
     {

@@ -41,7 +41,7 @@
 
     virtual protected void OnLoseGame()
     {
-        Hud.CreateLoseGameWindow().OnClick += StartLevel;
+        Hud.CreateLoseGameWindow().OnClick += StartNewGame;
     }
 
     virtual protected void OnCheckpoint()
@@ -72,22 +72,24 @@
         RocketController.SetSpeed(Config.StartSpeed);
     }
 
+    public void StartNewGame()
+    {
+        State.CurrentCheckpointScore = 0;
+        State.CurrentHealth = Config.MaxHealth;
+        CheckpointsManager.ActivateAllCheckpoins(false);
+
+        StartLevel();
+    }
+
     protected void EndLevel()
     {
         RocketController.Paused = true;
         State.CurrentHealth--;
 
         if (State.CurrentHealth > 0)
-        {
             OnLoseLevel();
-        }
         else
-        {
-            State.CurrentCheckpointScore = 0;
-            State.CurrentHealth = Config.MaxHealth;
-            CheckpointsManager.ActivateAllCheckpoins(false);
             OnLoseGame();
-        }
 
         SaveSystem.SaveState(State);
     }
@@ -108,14 +110,11 @@
 
     public void Pause()
     {
-        PauseMenuWindow window = Hud.CreatePauseMenuWindow();
-        window.OnResume += Resume;
-        // window.OnNewGame += 
-        // ...
+        RocketController.Paused = true;
     }
 
     public void Resume()
     {
-        
+        RocketController.Paused = false;
     }
 }

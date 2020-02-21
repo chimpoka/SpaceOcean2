@@ -16,7 +16,7 @@ public class MainMenuSceneController : SceneControllerBase
     }
 
    
-
+    // Main Menu Window
     private void OnPlay()
     {
         OpenPlayMenuWindow();
@@ -33,7 +33,7 @@ public class MainMenuSceneController : SceneControllerBase
     }
 
 
-
+    // Play Menu Window
     private void OnPlayAccelerometer()
     {
         GameInstance.ControllerMode = TypesHolder.ControllerMode.Accelerometer;
@@ -59,7 +59,7 @@ public class MainMenuSceneController : SceneControllerBase
     }
 
 
-
+    // Options Menu Window
     private void OnBackOptionsMenu()
     {
         OpenMainMenuWindow();
