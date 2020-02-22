@@ -13,7 +13,8 @@ public class GameSceneController : SceneControllerBase
         Strategy.StartLevel();
 
         Hud = (GameHud)HudBase.Instance;
-        Hud.OnPause += Pause;
+        Hud.OnPauseOpened += Pause;
+        Hud.OnPauseClosed += Resume;
     }
 
     private void Update()
@@ -25,8 +26,8 @@ public class GameSceneController : SceneControllerBase
 
     private void Pause()
     {
+        OpenPauseMenu();
         Strategy.Pause();
-        OpenPauseMenuWindow();
     }
 
     private void Resume()
@@ -36,12 +37,8 @@ public class GameSceneController : SceneControllerBase
 
     private void NewGame()
     {
+        Hud.CloseCurrentWindows();
         Strategy.StartNewGame();
-    }
-
-    private void OpenOptions()
-    {
-        OpenOptionsWindow();
     }
 
     private void OpenMainMenu()
@@ -57,20 +54,13 @@ public class GameSceneController : SceneControllerBase
 
 
 
-    void OpenPauseMenuWindow()
+    private void OpenPauseMenu()
     {
-        PauseMenuWindow window = Hud.CreatePauseMenuWindow();
-        window.OnResume += Resume;
-        window.OnNewGame += NewGame;
-        window.OnOptions += OpenOptions;
-        window.OnMainMenu += OpenMainMenu;
-        window.OnQuit += Quit;
-    }
-
-    private void OpenOptionsWindow()
-    {
-        OptionsMenuWindow OptionsMenuWindow = Hud.CreateOptionsMenuWindow();
-        OptionsMenuWindow.OnBack += OpenPauseMenuWindow;
+        PauseMenu window = Hud.CreatePauseMenu();
+        window.PauseMenuWindow.OnResume += Resume;
+        window.PauseMenuWindow.OnNewGame += NewGame;
+        window.PauseMenuWindow.OnMainMenu += OpenMainMenu;
+        window.PauseMenuWindow.OnQuit += Quit;
     }
 
 

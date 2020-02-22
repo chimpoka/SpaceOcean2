@@ -12,28 +12,16 @@ public class MainMenuSceneController : SceneControllerBase
         Config C = Config.Instance;
 
         Hud = (MainMenuHud)HudBase.Instance;
-        OpenMainMenuWindow();
+        OpenMainMenu();
     }
 
-   
-    // Main Menu Window
-    private void OnPlay()
-    {
-        OpenPlayMenuWindow();
-    }
-
-    private void OnOptions()
-    {
-        OpenOptionsWindow();
-    }
+ 
 
     private void OnQuit()
     {
         Application.Quit();
     }
 
-
-    // Play Menu Window
     private void OnPlayAccelerometer()
     {
         GameInstance.ControllerMode = TypesHolder.ControllerMode.Accelerometer;
@@ -48,46 +36,18 @@ public class MainMenuSceneController : SceneControllerBase
         levelLoader.LoadLevel(1);
     }
 
-    private void OnBackPlayMenu()
-    {
-        OpenMainMenuWindow();
-    }
-
     private void OnTutorial(bool value)
     {
         GameInstance.Instance.PlayMode = (value == true) ? TypesHolder.PlayMode.Tutorial : TypesHolder.PlayMode.Normal;
     }
 
-
-    // Options Menu Window
-    private void OnBackOptionsMenu()
+    private void OpenMainMenu()
     {
-        OpenMainMenuWindow();
-    }
-
-
-
-    private void OpenMainMenuWindow()
-    {
-        MainMenuWindow MainMenuWindow = Hud.CreateMainMenuWindow();
-        MainMenuWindow.OnPlay += OnPlay;
-        MainMenuWindow.OnOptions += OnOptions;
-        MainMenuWindow.OnQuit += OnQuit;
-    }
-
-    private void OpenPlayMenuWindow()
-    {
-        PlayMenuWindow PlayMenuWindow = Hud.CreatePlayMenuWindow();
-        PlayMenuWindow.OnPlayAccelerometer += OnPlayAccelerometer;
-        PlayMenuWindow.OnPlayTouchscreen += OnPlayTouchscreen;
-        PlayMenuWindow.OnBack += OnBackPlayMenu;
-        PlayMenuWindow.OnTutorial += OnTutorial;
-        PlayMenuWindow.SetTutorialToggle(GameInstance.Instance.PlayMode == TypesHolder.PlayMode.Tutorial ? true : false);
-    }
-
-    private void OpenOptionsWindow()
-    {
-        OptionsMenuWindow OptionsMenuWindow = Hud.CreateOptionsMenuWindow();
-        OptionsMenuWindow.OnBack += OnBackPlayMenu;
+        MainMenu MainMenu = Hud.CreateMainMenu();
+        MainMenu.MainMenuWindow.OnQuit += OnQuit;
+        MainMenu.PlayMenuWindow.OnPlayAccelerometer += OnPlayAccelerometer;
+        MainMenu.PlayMenuWindow.OnPlayTouchscreen += OnPlayTouchscreen;
+        MainMenu.PlayMenuWindow.OnTutorial += OnTutorial;
+        MainMenu.PlayMenuWindow.SetTutorialToggle(GameInstance.Instance.PlayMode == TypesHolder.PlayMode.Tutorial ? true : false);
     }
 }

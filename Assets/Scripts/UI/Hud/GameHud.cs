@@ -7,43 +7,51 @@ public class GameHud : HudBase
     public TextMeshProUGUI BestScore;
     public TextMeshProUGUI CurrentHealth;
 
-    public GameObject StartLevelWindow;
-    public GameObject LoseLevelWindow;
-    public GameObject LoseGameWindow;
-    public GameObject AccelerometerHowToPlayInfoWindow;
-    public GameObject TouchscreenHowToPlayInfoWindow;
-    public GameObject CheckpointInfoWindow;
-    public GameObject HealthInfoWindow;
+    [SerializeField]
+    private GameObject StartLevelWindow;
+    [SerializeField]
+    private GameObject LoseLevelWindow;
+    [SerializeField]
+    private GameObject LoseGameWindow;
+    [SerializeField]
+    private GameObject AccelerometerHowToPlayInfoWindow;
+    [SerializeField]
+    private GameObject TouchscreenHowToPlayInfoWindow;
+    [SerializeField]
+    private GameObject CheckpointInfoWindow;
+    [SerializeField]
+    private GameObject HealthInfoWindow;
 
-    public System.Action OnPause;
-    public PauseMenuWindow PauseMenuWindow;
-    public OptionsMenuWindow OptionsMenuWindow;
+    [SerializeField]
+    private PauseMenu PauseMenuPrefab;
+    [SerializeField]
+    private GameObject ActiveWindows;
+
+    public System.Action OnPauseOpened;
+    public System.Action OnPauseClosed;
+
+    private PauseMenu PauseMenuRef;
 
 
 
+    public void CloseCurrentWindows()
+    {
+        foreach (Transform child in ActiveWindows.transform)
+            Destroy(child.gameObject);
+    }
+
+    public PauseMenu CreatePauseMenu()
+    {
+        PauseMenu window = Instantiate(PauseMenuPrefab, ActiveWindows.transform);
+        PauseMenuRef = window;
+        OnPauseClosed += () => Destroy(PauseMenuRef.gameObject);
+
+        return window;
+    }
+  
     public void OnPauseButton()
-    {
-        OnPause();
-    }
-
-    public PauseMenuWindow CreatePauseMenuWindow()
-    {
-        PauseMenuWindow window = Instantiate(PauseMenuWindow, transform);
-        window.OnResume += () => Destroy(window.gameObject);
-        window.OnNewGame += () => Destroy(window.gameObject);
-        window.OnOptions += () => Destroy(window.gameObject);
-        window.OnMainMenu += () => Destroy(window.gameObject);
-        window.OnQuit += () => Destroy(window.gameObject);
-
-        return window;
-    }
-
-    public OptionsMenuWindow CreateOptionsMenuWindow()
-    {
-        OptionsMenuWindow window = Instantiate(OptionsMenuWindow, transform);
-        window.OnBack += () => Destroy(window.gameObject);
-
-        return window;
+    { 
+        (PauseMenuRef ? OnPauseClosed : OnPauseOpened)();
     }
 
 
@@ -85,9 +93,10 @@ public class GameHud : HudBase
 
 
 
+
     private UIEventHandler CreateSimpleClickableWindow(GameObject window)
     {
-        GameObject obj = InstantiateUIPrefab(window);
+        GameObject obj = InstantiateUIPrefab(window, ActiveWindows.transform);
         UIEventHandler Event = obj.GetComponent<UIEventHandler>();
 
         if (Event == null)

@@ -8,6 +8,7 @@
 
     private CheckpointsManager CheckpointsManager;
     private FollowCamera Camera;
+    private bool RocketMovementState;
 
     public PlayStrategy(RocketController rocketController)
     {
@@ -18,7 +19,6 @@
         Config = Config.Instance;
 
         Hud = (GameHud)HudBase.Instance;
-        Hud.OnPause += Pause;
 
         CheckpointsManager = new CheckpointsManager();
         CheckpointsManager.OnCheckpointActivated += UpdateCheckpointScore;
@@ -110,11 +110,12 @@
 
     public void Pause()
     {
+        RocketMovementState = RocketController.Paused;
         RocketController.Paused = true;
     }
 
     public void Resume()
     {
-        RocketController.Paused = false;
+        RocketController.Paused = RocketMovementState;
     }
 }
