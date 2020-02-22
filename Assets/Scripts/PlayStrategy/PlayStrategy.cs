@@ -76,6 +76,8 @@
     {
         State.CurrentCheckpointScore = 0;
         State.CurrentHealth = Config.MaxHealth;
+        SaveSystem.SaveState(State);
+
         CheckpointsManager.ActivateAllCheckpoins(false);
 
         StartLevel();

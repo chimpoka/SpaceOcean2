@@ -51,7 +51,7 @@ public class Rocket : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.GetComponent<Checkpoint>() == null)
+        if (!other.GetComponent<Checkpoint>())
             OnDied();
     }
 }
