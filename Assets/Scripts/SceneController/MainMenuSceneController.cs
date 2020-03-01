@@ -25,15 +25,13 @@ public class MainMenuSceneController : SceneControllerBase
     private void OnPlayAccelerometer()
     {
         GameInstance.ControllerMode = TypesHolder.ControllerMode.Accelerometer;
-        LevelLoader levelLoader = new LevelLoader();
-        levelLoader.LoadLevel(1);
+        GameInstance.LevelLoader.LoadLevel(1);
     }
 
     private void OnPlayTouchscreen()
     {
         GameInstance.ControllerMode = TypesHolder.ControllerMode.Touchscreen;
-        LevelLoader levelLoader = new LevelLoader();
-        levelLoader.LoadLevel(1);
+        GameInstance.LevelLoader.LoadLevel(1);
     }
 
     private void OnTutorial(bool value)

@@ -43,8 +43,7 @@ public class GameSceneController : SceneControllerBase
 
     private void OpenMainMenu()
     {
-        LevelLoader LevelLoader = new LevelLoader();
-        LevelLoader.LoadLevel(0);
+        GameInstance.Instance.LevelLoader.LoadLevel(0);
     }
 
     private void Quit()

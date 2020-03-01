@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LevelLoaderAnimatorEvent : MonoBehaviour
+public class LoadScreen : MonoBehaviour
 {
     public System.Action OnFadeInCompleted;
     public System.Action OnFadeOutCompleted;

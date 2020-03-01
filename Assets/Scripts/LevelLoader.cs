@@ -1,58 +1,58 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class LevelLoader
+[CreateAssetMenu(menuName = "ScriptableObjects / LevelLoader")]
+public class LevelLoader : ScriptableObject
 {
+    [SerializeField]
+    private GameObject DefaultCanvas;
+    [SerializeField]
+    private LoadScreen[] LoadScreenObjects;
+
     private int NextLevelBuildIndex;
-    private GameObject LevelLoaderObject;
-    private LevelLoaderAnimatorEvent AnimatorEvent;
+    private GameObject CanvasObject;
+
+    LevelLoader()
+    {
+        SceneManager.sceneLoaded += OnNextSceneLoaded;
+    }
 
     public void LoadLevel(int BuildIndex)
     {
-        AnimatorEvent = CreateLoadLevelAnimatorEvent();
-        AnimatorEvent.OnFadeOutCompleted += LoadNextScene;
-        AnimatorEvent.FadeOut();
+        LoadScreen LoadScreen = CreateLoadScreen();
+        LoadScreen.OnFadeOutCompleted += LoadNextScene;
+        LoadScreen.FadeOut();
 
         NextLevelBuildIndex = BuildIndex;
     }
 
 
 
-    private LevelLoaderAnimatorEvent CreateLoadLevelAnimatorEvent()
+    private LoadScreen CreateLoadScreen()
     {
-        LevelLoaderObject = MonoBehaviour.Instantiate(Resources.Load("HUD/GameScene/LevelLoader/LevelLoader")) as GameObject;
+        CanvasObject = Instantiate(DefaultCanvas);
+        //int RandomIndex = Random.Range(0, LoadScreenObjects.Length);
+        LoadScreen AnimatorEvent = Instantiate(LoadScreenObjects[0]);
+        AnimatorEvent.gameObject.transform.SetParent(CanvasObject.transform, false);
 
-        LevelLoaderAnimatorEvent[] LLAE = LevelLoaderObject.GetComponentsInChildren<LevelLoaderAnimatorEvent>(true);
-
-        foreach (LevelLoaderAnimatorEvent animEvent in LLAE)
-        {
-            animEvent.gameObject.SetActive(false);
-        }
-
-        LLAE[0].gameObject.SetActive(true);
-        return LLAE[0];
-
-        return LevelLoaderObject.GetComponentInChildren<LevelLoaderAnimatorEvent>();
+        return AnimatorEvent;
     }
 
     private void LoadNextScene()
-    {
-        SceneManager.sceneLoaded += OnNextSceneLoaded;
-        SceneManager.LoadScene(NextLevelBuildIndex); 
+    {  
+        SceneManager.LoadScene(NextLevelBuildIndex);
     }
 
     private void OnNextSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        AnimatorEvent = CreateLoadLevelAnimatorEvent();
-        AnimatorEvent.OnFadeInCompleted += DestroyLevelLoaderObject;
-        AnimatorEvent.FadeIn();
+        LoadScreen LoadScreen = CreateLoadScreen();
+        LoadScreen.OnFadeInCompleted += DestroyLoadScreen;
+        LoadScreen.FadeIn();
     }
 
-    private void DestroyLevelLoaderObject()
+    private void DestroyLoadScreen()
     {
-        if (LevelLoaderObject)
-            MonoBehaviour.Destroy(LevelLoaderObject);
+        if (CanvasObject)
+            Destroy(CanvasObject);
     }
 }
