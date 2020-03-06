@@ -14,3 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ControllerMode: 0
   PlayMode: 1
+  LevelLoader: {fileID: 11400000, guid: d5227a585f8fdae499f35c529720bd61, type: 2}
+  AudioManager: {fileID: 11400000, guid: 898c6507e9f97324c94e49f838ab15a4, type: 2}

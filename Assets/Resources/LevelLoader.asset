@@ -12,5 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20d35681242a0de4080312fba0b0beea, type: 3}
   m_Name: LevelLoader
   m_EditorClassIdentifier: 
-  DefaultCanvas: {fileID: 0}
-  LoadScreenObjects: []
+  DefaultCanvas: {fileID: 1089754309388207364, guid: 8748209b1f2508647958d7401ac605e6,
+    type: 3}
+  LoadScreenObjects:
+  - {fileID: 6424817812683777962, guid: 7f92bb172291a6e48af4c3b1e547bea3, type: 3}
+  - {fileID: 6192774131810642047, guid: ee8720e5e8965ee49b25996f30813146, type: 3}
+  - {fileID: 2216255059643347201, guid: 4884caf77a8750b4e9fe3f5a6532021d, type: 3}
