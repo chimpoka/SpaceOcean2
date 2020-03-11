@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 [CreateAssetMenu(menuName = "ScriptableObjects / Config")]
-public class Config : SingletonScriptableObject<Config>
+public class Config : ScriptableObject
 {
     public float StartSpeed = 5.0f;
     public int MaxHealth = 5;

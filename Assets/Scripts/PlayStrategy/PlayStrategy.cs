@@ -16,7 +16,7 @@
         RocketController.OnRocketDied += EndLevel;
 
         Camera = new FollowCamera(RocketController.Rocket.gameObject);
-        Config = Config.Instance;
+        Config = GameInstance.Instance.Config;
 
         Hud = (GameHud)HudBase.Instance;
 

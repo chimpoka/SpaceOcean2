@@ -12,11 +12,6 @@ public class LevelLoader : ScriptableObject
     private int NextLevelBuildIndex;
     private GameObject CanvasObject;
 
-    LevelLoader()
-    {
-        SceneManager.sceneLoaded += OnNextSceneLoaded;
-    }
-
     public void LoadLevel(int BuildIndex)
     {
         LoadScreen LoadScreen = CreateLoadScreen();
@@ -40,11 +35,13 @@ public class LevelLoader : ScriptableObject
 
     private void LoadNextScene()
     {  
+        SceneManager.sceneLoaded += OnNextSceneLoaded;
         SceneManager.LoadScene(NextLevelBuildIndex);
     }
 
     private void OnNextSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        SceneManager.sceneLoaded -= OnNextSceneLoaded;
         LoadScreen LoadScreen = CreateLoadScreen();
         LoadScreen.OnFadeInCompleted += DestroyLoadScreen;
         LoadScreen.FadeIn();

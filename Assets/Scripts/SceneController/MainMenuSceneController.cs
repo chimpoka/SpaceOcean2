@@ -7,9 +7,7 @@ public class MainMenuSceneController : SceneControllerBase
 
     private void Start()
     {
-        // Bug, check this later
         GameInstance = GameInstance.Instance;
-        Config C = Config.Instance;
 
         Hud = (MainMenuHud)HudBase.Instance;
         OpenMainMenu();

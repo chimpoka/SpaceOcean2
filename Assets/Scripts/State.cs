@@ -3,7 +3,7 @@
     private GameHud Hud = (GameHud)HudBase.Instance;
     private int currentScore = 0;
     private int bestScore = 0;
-    private int currentHealth = Config.Instance.MaxHealth;
+    private int currentHealth = GameInstance.Instance.Config.MaxHealth;
     private int currentCheckpointScore = 0;
 
     public State()

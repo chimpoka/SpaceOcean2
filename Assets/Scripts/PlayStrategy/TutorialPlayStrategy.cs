@@ -30,10 +30,10 @@
         }
         else
         {
-            RocketController.Paused = true;
+            Pause();
             UIEventHandler Event = Hud.CreateCheckpointInfoWindow();
             Event.OnClick += base.OnCheckpoint;
-            Event.OnClick += () => { RocketController.Paused = false; };
+            Event.OnClick += Resume;
             CheckpointTutorialCompleted = true;
         }
     }
