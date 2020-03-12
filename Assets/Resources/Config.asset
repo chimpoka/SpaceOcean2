@@ -17,3 +17,5 @@ MonoBehaviour:
   CheckpointsCount: 10
   StartCheckpointScore: 5
   CheckpointsInterval: 5
+  CameraOffset: {x: 0, y: 0, z: -10}
+  CameraRotation: {x: 0, y: 30, z: 0}

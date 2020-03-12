@@ -2,18 +2,23 @@
 
 public class FollowCamera
 {
-    public GameObject FollowObject;
-    private Camera cam;
+    private GameObject FollowObject;
+    private Config config;
+    private Camera camera;
 
     public FollowCamera(GameObject followObject)
     {
-        cam = Camera.main;
+        config = GameInstance.Instance.Config;
+
+        camera = Camera.main;
+        camera.transform.eulerAngles = config.CameraRotation;
+
         FollowObject = followObject;
     }
 
     public void Update()
     {
-        cam.transform.position = FollowObject.transform.position;
-        cam.transform.Translate(0, 0, -10);
+        camera.transform.position = FollowObject.transform.position + config.CameraOffset;
+        //camera.transform.eulerAngles = config.CameraRotation;
     }
 }
